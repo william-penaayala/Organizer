@@ -1,0 +1,65 @@
+#!/usr/bin/env python3
+import os
+
+from MagicImage import MagicImage,MagicGif
+
+class MagicPool:
+    def __init__(self):
+        self.total_count = -1
+        self.pool = {}
+
+    def scan_folder_hierarchy(self, path):
+        pass
+
+    # Returns an array of local ids of images containing the tag
+    def search_by_tag(self, search_pool, tag):
+        _result = []
+        for local_id, image in search_pool:
+            if(image.tags.contains(tag)):
+                _result.append(local_id)
+        return _result
+
+
+    def search_by_tags(self, search_pool, tags):
+        pass
+
+    def insert(self, magic_image):
+        self.total_count += 1
+        self.pool[self.total_count] = magic_image
+
+    def delete(self, local_id):
+        self.pool[local_id] = MagicDeletedImage(local_id)
+
+
+    def get(self, local_id):
+        try:
+            return self.pool[local_id]
+        except KeyError:
+            return None
+
+    def save_pool(self, target_path):
+        pass
+
+    def import_pool(self, target_path):
+        pass
+
+
+test = MagicImage(r"C:\Users\Admin\Desktop\Python\Organizer\Source_Images\7UwGxc_NKC6MLYhCvac-UoPjvCHS5cUC4Av4iEYKy48.jpg", 0, r".jpg")
+test2 = MagicGif(r"C:\Users\Admin\Desktop\Python\Organizer\Source_Images\pose.gif", 1)
+
+test.tags.extend(["german_shepherd", "brick", "day", "dog", "canine"])
+test2.tags.extend(["border_collie", "animated", "dog", "canine", "hug"])
+test.tags.sort()
+test2.tags.sort()
+
+print(test.tags)
+print(test2.tags)
+
+test_pool = MagicPool()
+test_pool.insert(test)
+test_pool.insert(test2)
+
+print(test_pool.pool)
+print(test_pool.get(0), test_pool.get(1))
+
+a = input("hello there")

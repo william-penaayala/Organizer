@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+import os
+
+class MagicImage:
+    @staticmethod
+    def get_size(img_path):
+        return os.path.getsize(img_path)
+
+    def __init__(self, path, local_id, image_type):
+        self.path = path
+        self.local_id = local_id
+        self.content = open(path)
+        self.tags = []
+        self.sources = []
+        self.image_type = image_type
+        self.size = self.get_size(self.path)
+        self.label = "no label"
+
+    def move_to_folder(self, target_path):
+        pass
+
+    def open(self):
+        pass
+
+    def sort_data(self):
+        self.tags.sort()
+        self.sources.sort()
+
+    
+
+class MagicGif(MagicImage):
+    def __init__(self, path, local_id):
+        MagicImage.__init__(self, path, local_id, ".gif")
+
+
+test = MagicImage(r"C:\Users\Admin\Desktop\Python\Organizer\Source_Images\7UwGxc_NKC6MLYhCvac-UoPjvCHS5cUC4Av4iEYKy48.jpg", r".jpg")
+test2 = MagicGif(r"C:\Users\Admin\Desktop\Python\Organizer\Source_Images\pose.gif")
+
+test.tags.extend(["german_shepherd", "brick", "day", "dog", "canine"])
+test2.tags.extend(["border_collie", "animated", "dog", "canine", "hug"])
