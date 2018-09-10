@@ -1,7 +1,7 @@
 This is a simple tag-based local image organizer that allows you to: 
-  COMPLETE collect image files on your computer under pools
-  COMPLETE tag these files
-  COMPLETE save a record of all files and their data
+  - COMPLETE collect image files on your computer under pools
+  - COMPLETE tag these files
+  - COMPLETE save a record of all files and their data
   - search according to these tags and other metadata
   - maintain multiple image files open in multiple tabs
   - rip images from popular sites and image boards
