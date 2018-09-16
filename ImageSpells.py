@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os
+import os, glob
 
 
 class MagicImage:
@@ -13,8 +13,9 @@ class MagicImage:
         # TODO
         return (0,0)
 
-    def __init__(self, path=None, local_id=None, image_type=None):
+    def __init__(self, path=None, local_id=None, image_type=None, icon_path=None):
         self.path = path
+        self.icon_path = icon_path
         self.local_id = local_id
         self.tags = []
         self.sources = []
@@ -114,15 +115,6 @@ class MagicPool:
         self.total_count = -1
         self.pool = {}
 
-    # Returns an array of local ids of images containing the tag
-    @staticmethod
-    def search_by_tag(search_pool, tag):
-        _result = []
-        for local_id, image in search_pool:
-            if(image.tags.contains(tag)):
-                _result.append(local_id)
-        return _result
-
     def insert(self, magic_image):
         self.pool[int(self.total_count)] = magic_image
         self.total_count += 1
@@ -199,3 +191,50 @@ class MagicSaveLoader:
                 saved_object.load_from_save_string(line)
                 input_MagicPool.insert_proper(saved_object, saved_object.local_id)
         return True
+
+
+class MagicSearchEngine:
+    @staticmethod
+    def check_search_string(input_search_string):
+        return True
+
+    @staticmethod
+    def list_contains(list1, list2):
+        for i in list1:
+            if i not in list2:
+                return False
+        return True
+
+    def __init__(self):
+        self.current_search_string = ""
+        self.current_working_pool = None
+        self.current_search_results = []
+        self.current_search_result_page = 0
+        self.current_selection = None
+        self.search_result_page_size = 18
+
+    def set_search(self, input_search):
+        if self.check_search_string(input_search):
+            self.current_search_string = input_search
+            return True
+        else:
+            return False
+
+    # TODO: Shouldnt return anything, should actually just change self.current_search_results
+    # Returns an array of local ids of images containing the tag
+    def search_pool(self):
+        _result = []
+        search_tags = self.current_search_string.split(' ')
+        print("Current Search String: " + self.current_search_string)
+        print("Search_tags: " + search_tags)
+        if len(search_tags) == 0:
+            _result = self.current_search_results
+            return _result
+        for image in self.current_working_pool.pool.values():
+            if MagicSearchEngine.list_contains(search_tags, image.tags):
+                _result.append(image)
+        print("result = " + _result)
+        return _result
+
+    def return_search_results(self):
+        return self.current_search_results
