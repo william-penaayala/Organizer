@@ -1,3 +1,5 @@
+Disclaimer: I'm not continuing this project. It was my first python project and I quickly abandoned it in favour of a web-based solution.
+
 This is a simple tag-based local image organizer that allows you to: 
   - COMPLETE collect image files on your computer under pools
   - COMPLETE tag these files
